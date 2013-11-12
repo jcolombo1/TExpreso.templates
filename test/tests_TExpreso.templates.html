@@ -1,0 +1,257 @@
+ <!DOCTYPE html>
+<html>
+ <head>
+<title>TEST Twitter Bootstrap Templates para TExpreso</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="etc/qunit.css">
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="tbs3/css/bootstrap3.min.css">
+
+    </head>
+    <body>
+	
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<br>
+		<br>
+		<ul>
+			<li>
+				<h2>Inputs</h2>
+				<h3>Caso 1:</h3> <div id="ej-1-1"></div> 
+			</li>
+		</ul>
+		<div id="lapso"></div> 
+
+	<script src="etc/jquery-1.9.1.min.js"></script>
+	<script src="etc/qunit.js"> </script>
+	
+    <script src="tbs3/js/bootstrap3.min.js"></script>
+	
+	<script src="../../TExpreso.js/TExpreso.js"></script>
+	<script src="../../TExpreso.js/jquery.TExpreso.js"></script>
+	
+	<script src="../dataAdapter.js"></script>
+
+ 
+<script type="text/javascript">
+
+	var ct , clk;
+	
+	asyncTest( "Test: TEMPLATE Twitter Bootstrap v 3.0 (tpl_commons_tbs3.html) > inputs", function() {
+		clk = new Date();
+
+		$.TExpreso.addFromDom();
+		$.TExpreso.addFromUrl("tpl_commons_tbs3.html", function(count) {
+		
+			ok(count > 1, 'load');
+			
+			var data = { // json response simulado
+				"j_username" : { label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' },   /** @TODO  minlength */
+				"j_password" : { label:'Contraseña', type:'password', id:'j_password_id', required: true },
+				"email" : { label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true, addon: { icon: 'icon-envelope' } },
+				"j_remember_me" : { label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  },
+				"estCivil" : { id: 'estCivil_id', label: 'Estado Civil', type: 'radio', required: true, value: 'S', options: [ {value: 'C', text: 'Casado'}, {value: 'S', text: 'Soltero'}, {value: 'D',text: 'Divorciado'} ] },
+				"provincia" : { id: 'provincia_id', label: 'Provincia', value: 'AU', type:'select',  options: [ {value:'BA',text:'Bs. As.'}, {value:'AU',text:'CABA'}, {value:'TF',text:'Tierra del Fuego'} ] },
+			};  
+			
+			dataAdapter(data);		// add helpers vars
+			
+			$('#ej-1-1').texpreso( 'template-1', data );	// ************ renderizar
+			$('#lapso').append('<br>... 1 Tardó : '+ (new Date()-clk) +' ms.');
+			
+			checkAttributes( 'j_username_id', {	// testing attrs
+				'TAGNAME': 'INPUT',
+				'LABEL': data.j_username.label,
+				'name' : data.j_username.name,
+				'placeholder': data.j_username.placeholder,
+				'type' : data.j_username.type,
+				'value' : data.j_username.value,
+				'required' : data.j_username._$aRequired,
+				'class': "form-control",
+			});
+			checkAttributes( 'j_password_id', {	// testing attrs
+				'TAGNAME': 'INPUT',
+				'LABEL': data.j_password.label,
+				'name' : data.j_password.name,
+				'type' : data.j_password.type,
+				'placeholder': data.j_password.placeholder,
+				'value' : data.j_password.value,
+				'required' : data.j_password._$aRequired,
+				'class': "form-control",
+			});
+			checkAttributes( 'email_id', {	// testing attrs
+				'TAGNAME': 'INPUT',
+				'LABEL': data.email.label,
+				'name' : data.email.name,
+				'type' : data.email.type,
+				'placeholder': data.email.placeholder,
+				'value' : data.email.value,
+				'required' : data.email._$aRequired,
+				'class': "form-control",
+			});
+			checkAttributes( 'j_remember_me_id', {	// testing attrs
+				'TAGNAME': 'INPUT',
+				'LABEL': data.j_remember_me.label,
+				'NEXT_TEXT': data.j_remember_me.text,
+				'name' : data.j_remember_me.name,
+				'type' : data.j_remember_me.type,
+				'placeholder': data.j_remember_me.placeholder,
+				'checked' : data.j_remember_me._$aChecked,
+			});
+			for (var idx=0; idx<data.estCivil.options.length; idx++) {
+				checkAttributes( 'estCivil_id-'+idx, {
+					'TAGNAME': 'INPUT',
+					'LABEL': data.estCivil.label,
+					'name' : data.estCivil.name,
+					'type' : data.estCivil.type,
+					'placeholder': data.estCivil.placeholder,
+					'checked' : (data.estCivil.options[idx])._$aChecked,
+				});
+			};	
+			checkAttributes( 'provincia_id', {	// testing attrs
+				'TAGNAME': 'SELECT',
+				'LABEL': data.provincia.label,
+				'name' : data.provincia.name,
+				'placeholder': data.provincia.placeholder,
+				'required' : data.provincia._$aRequired,
+				'class': "form-control",
+			});
+			for (var idx=0; idx<data.provincia.options.length; idx++) {
+				checkAttributes( 'provincia_id-'+idx, {	// testing attrs
+					'TAGNAME': 'OPTION',
+					'TEXT': (data.provincia.options[idx]).text,
+					'value' : (data.provincia.options[idx]).value,
+					'required' : (data.provincia.options[idx])._$aRequired,
+					'selected' : (data.provincia.options[idx])._$aSelected,
+				});
+			};
+			
+			
+			
+
+		});
+		
+		expect(82); start();
+	});
+
+</script>
+
+<!-- TEMPLATES -->
+
+<script id="template-1"  type="text/html" >
+	<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header">
+					<h1>{{_legend}}</h1>
+				</div>
+			</div>
+	</div>
+	<div class="row">
+		
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="well">
+				<form class="form-horizontal" action="{{_action}}">
+					<fieldset>
+						{{#j_username}} {{> control-group-input}} {{end}}
+						{{#j_password}} {{> control-group-input}} {{end}}
+						{{#email}} {{> control-group-input}} {{end}}
+						{{#j_remember_me}} {{> control-group-input}} {{end}}
+						{{#estCivil}} {{> control-group-input}} {{end}}
+						{{#provincia}} {{> control-group-input}} {{end}}
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>		
+	
+	
+</script>
+	
+<script type="text/javascript">	
+// check elements attrs
+var checkAttributes = function(id, attrs) { 
+	var ct=1, e = document.getElementById(id) ? document.getElementById(id) : document.getElementsByName(id) ? document.getElementsByName(id)[0] : null;
+	ok( !!e , id+' existe elemento' );
+	if (e) {  
+		var $e = $(e), name = $e.attr('name');
+		for (var i in attrs) {
+			var a = $e.attr(i), xi = id + ': ' + i + (/selected|checked/i.test(i) ? ' -> '+(a?'( SI )':'( no )') : '');
+			if (i=='TAGNAME') equal( e.tagName, attrs[i], xi); 
+			else if (i=='LABEL') ok( ($("label[for='"+name+"']").text()).indexOf(attrs[i])>=0 , xi); 
+			else if (i=='NEXT_TEXT') equal( String(e.nextSibling.nodeValue).trim(), attrs[i], xi);
+			else if (i=='TEXT') equal( $e.text().trim(), attrs[i], xi);
+			else equal( a!==undefined ? a.trim() : undefined, attrs[i], xi); 
+			ct++;
+		}
+	};
+	return ct;
+};
+
+
+
+function logScript(node, ind, reIndent) {		// para usarlo en test
+	var buf = '', xind = '', xlf = '';
+	if (reIndent) { xind = '\t'; xlf = '\n'; };
+	var ite = function(arr, ind) {
+		for (var i in arr) {
+			if (typeof arr[i]=='string') buf = buf + ind + arr[i] + xlf;
+			else buf = buf + logScript(arr[i], ind, reIndent);
+		}    
+	};
+	ind = ind || '';
+	var h = node.op[0] === 'prog';
+	var opx = [].concat(node.op);
+	buf = buf + ( h ? '' : ind + '{{' + opx.shift() + opx.join(' ') + '}}' + xlf );
+	ite( node.T, ind+(h?'':xind) );
+	if (node.E) {
+		buf = buf + ind + '{{else}}' + xlf;
+		ite( node.E, ind+(h?'':xind) );
+	};	
+	buf = buf + ( h ? '' : ind + '{{end}}' + xlf );
+	return buf;
+};
+	
+</script>	
+						<!--
+						<div data-partial="control-group-input" data-sectionkey="username" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.j_username2" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.j_password" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.email" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.j_remember_me" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.provincia" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.localidad" data-onchange="person.provincia" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.rad" data-onchange="person.localidad" ></div>
+						<div data-partial="control-group-input" data-sectionkey="person.serial" ></div>
+						<br>
+						{{#person.colores}}
+						<div data-partial="control-group-input" data-sectionkey="blanco"></div>
+						<div data-partial="control-group-input" data-sectionkey="azul" ></div>
+						{{/person.colores}}
+						
+			 person : 
+				[
+					"j_username" : [ label:'Usuario', placeholder: 'ingrese su email', id:'id1', type:"text", required: true, minlength: "2" ],
+					"j_username2" : [ label:'Usuario2', placeholder: 'ingrese su email', id:'id2', type:"text", required: true, minlength: "2" ],
+					"j_password" : [ label:'Contraseña', placeholder: x, type:'password' , required: true ],
+					"email" : [ label:'Email', placeholder: 'ej: suemail@dominio.com', type:'email' , required: true, addon: [ icon: 'icon-envelope' ] ],
+					"j_remember_me" : [ label:'Recordarme', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  ],
+					"colores": [  
+						 "blanco" : [ label:'Qué colores?', text: 'blanco', type:'checkbox', checked: true ],
+						 "azul" : [ text: 'azul', type:'checkbox' ],
+							],
+					"provincia" : [ label:'Provincia', type:'select', options: [ [value:'BA',text:'Bs. As.'], [value:'AU',text:'CABA'], [value:'TF',text:'Tierra del Fuego'] ] ],
+					"localidad" : [ label:'Localidad', type:'select', options: [ [value:'LP',text:'Los Polvorines'], [value:'SM',text:'San Miguel'], [value:'DT',text:'Don Torcuato'] ] ],
+					"rad" : [ label:'Estado Civil', type:'radio', required: true, value: 'S', options: [ [value:'C', text:'Casado'], [value:'S',text:'Soltero'], [value:'D',text:'Divorciado'] ] ],
+				]	
+						
+						
+						
+						-->
+	
+	
+	
+    </body>
+ </html>
