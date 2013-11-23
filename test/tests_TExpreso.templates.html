@@ -1,26 +1,26 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
  <head>
-<title>TEST Twitter Bootstrap Templates para TExpreso</title>
+	<title>TEST Twitter Bootstrap (v3) Templates para TExpreso</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="JAC" name="author">
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="etc/qunit.css">
 
 		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" href="tbs3/css/bootstrap3.min.css">
-
+		<link rel="stylesheet" href="tbs3/css/bootstrap3.css">
     </head>
     <body>
 	
+	 
 		<div id="qunit"></div>
 		<div id="qunit-fixture"></div>
-		<br>
-		<br>
-		<ul>
-			<li>
-				<h2>Inputs</h2>
-				<h3>Caso 1:</h3> <div id="ej-1-1"></div> 
-			</li>
-		</ul>
+		
+		<h3>Caso 1:</h3> 
+		<div id="ej-1-1" class="container"></div> 
 		<div id="lapso"></div> 
 
 	<script src="etc/jquery-1.9.1.min.js"></script>
@@ -32,47 +32,84 @@
 	<script src="../../TExpreso.js/jquery.TExpreso.js"></script>
 	
 	<script src="../dataAdapter.js"></script>
+	<script src="../paginatorGrails.js"></script>
 
  
 <script type="text/javascript">
 
 	var ct , clk;
+
+	var pag = window.newPaginatorGrails({link:'#lista', sort:'nombre'});
 	
-	asyncTest( "Test: TEMPLATE Twitter Bootstrap v 3.0 (tpl_commons_tbs3.html) > inputs", function() {
+	asyncTest( "Test: TEMPLATE Twitter Bootstrap v 3.0 (tpl_tbs3.html) > inputs", function() {
 		clk = new Date();
 
 		$.TExpreso.addFromDom();
-		$.TExpreso.addFromUrl("tpl_commons_tbs3.html", function(count) {
+		$.TExpreso.addFromUrl("tpl_tbs3.html", function(count) {
 		
 			ok(count > 1, 'load');
 			
 			var data = { // json response simulado
-				"j_username" : { label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' },   /** @TODO  minlength */
-				"j_password" : { label:'Contraseña', type:'password', id:'j_password_id', required: true },
-				"email" : { label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true, addon: { icon: 'icon-envelope' } },
-				"j_remember_me" : { label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  },
+				"j_username" : { class: 'has-success', prepends: [{icon:'user'}], label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' },   /** @TODO  minlength */
+				"j_password" : { prepends: [{icon:'asterisk'}], label:'Contraseña', type:'password', id:'j_password_id', required: true },
+				"email" : {  class: 'has-error', prepends: [{icon:'envelope'}], label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
+				"j_remember_me" : { icon:'star', label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  },
 				"estCivil" : { id: 'estCivil_id', label: 'Estado Civil', type: 'radio', required: true, value: 'S', options: [ {value: 'C', text: 'Casado'}, {value: 'S', text: 'Soltero'}, {value: 'D',text: 'Divorciado'} ] },
-				"provincia" : { id: 'provincia_id', label: 'Provincia', value: 'AU', type:'select',  options: [ {value:'BA',text:'Bs. As.'}, {value:'AU',text:'CABA'}, {value:'TF',text:'Tierra del Fuego'} ] },
+				"provincia" : { class: 'has-success', id: 'provincia_id', label: 'Provincia', value: 'AU', type:'select',  options: [ {value:'BA',text:'Bs. As.'}, {value:'AU',text:'CABA'}, {value:'TF',text:'Tierra del Fuego'} ] },
+				"oculto" : { id:'oculto_id', type: "hidden", label:'XXXXX', placeholder: 'BBBBBBBBBBBBBBB', required: true, value: 'JORGE' },
+				"areatexto" : { class: 'has-success', label:'Texto', rows: 1, placeholder: 'escriba aquí lo que desee...(1 row)', id:'areatexto_id', type: "textarea", required: true },
+				"areatexto2" : { label:'Texto2', placeholder: 'escriba aquí lo que desee...(3 rows)', id:'areatexto2_id', type: "textarea" },
+				"provs" : { id: 'provs_id', label: 'Provincias', type:'tablelist', _rows: [ {row:{value:'Buenos Aires', badge:'10'}}, {row:{active:true, head:'Capital Federal', value: '(también denominada CABA)', badge:'5'}}, {row:{value:'Tierra del Fuego', badge:'2'}}, {row:{value:'AAAA'}}, {row:{value:'BBBB'}}, {row:{value:'CCCC'}} ] },
+				"email2" : { prepends: [ {icon: 'envelope'}, {}, {text: 'Email: '} ], appends: [ { btn: { class:'btn-primary', icon: {prepend: 'check'}, text: 'Enviar !' }} ], label:'Email 2', id: 'email2_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
+				"email3" : { prepends: [ {icon: 'envelope'}, {}, {text: 'Email: '} ], appends: [ {btn: { class:'btn-danger', dropup:true, group: { addon: {text:'Menú', icon:'user'}, menus:[{link:'#',text:'Link A',icon:'ok'},{text:'Link B'},{text:'Link C'},{divider:true},{text:'Link D',icon:{append:'star'}}] }}} ], label:'Email 3', id: 'email3_id', type: 'text' , required: true } , //addon: { icon: 'icon-envelope' } },
+				"lista" : {
+					"_columns": { 
+						"id" : { label: 'ID' },
+						"nombre" : { label: 'NOMBRE', sort: true },
+					},
+					"_rows": [ 
+						{ "id" : { text: '1', link: '#_' }, "nombre" : { text: 'Jorge C.', link: '#' } }, // row 1 
+						{ "id" : { text: '2', link: '#_' }, "nombre" : { text: 'Patry G.', link: '#' } }, // row 2 
+					],
+					"_paginator": { total: 60 },
+				}
 			};  
+			for (var i=3; i<=10; i++){
+				var rec = { "id" : { text: ''+i, link: '#_' }, "nombre" : { text: 'Usuario nro. '+i, link: '#_' } }; 
+				data.lista._rows.push(rec);
+			};
+			//data.lista._paginator = { total: data.lista._rows.length },
 			
 			dataAdapter(data);		// add helpers vars
+			
+			pag.update(data["lista"]);
 			
 			$('#ej-1-1').texpreso( 'template-1', data );	// ************ renderizar
 			$('#lapso').append('<br>... 1 Tardó : '+ (new Date()-clk) +' ms.');
 			
+			checkAttributes( 'oculto_id', {	// testing attrs
+				'TAGNAME': 'INPUT',
+				'LABEL': undefined,
+				'name' : data.oculto.name,
+				'placeholder': undefined,
+				'type' : data.oculto.type,
+				'value' : data.oculto.value,
+				'required' : undefined,
+				'class': undefined,
+			});
 			checkAttributes( 'j_username_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_username.label,
+				'LABEL': data.j_username.label + ' :',
 				'name' : data.j_username.name,
 				'placeholder': data.j_username.placeholder,
 				'type' : data.j_username.type,
 				'value' : data.j_username.value,
 				'required' : data.j_username._$aRequired,
-				'class': "form-control",
+				'class': "form-control has-success",
 			});
 			checkAttributes( 'j_password_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_password.label,
+				'LABEL': data.j_password.label + ' :',
 				'name' : data.j_password.name,
 				'type' : data.j_password.type,
 				'placeholder': data.j_password.placeholder,
@@ -82,17 +119,17 @@
 			});
 			checkAttributes( 'email_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.email.label,
+				'LABEL': data.email.label + ' :',
 				'name' : data.email.name,
 				'type' : data.email.type,
 				'placeholder': data.email.placeholder,
 				'value' : data.email.value,
 				'required' : data.email._$aRequired,
-				'class': "form-control",
+				'class': "form-control has-error",
 			});
 			checkAttributes( 'j_remember_me_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_remember_me.label,
+				'LABEL': data.j_remember_me.label + ' :',
 				'NEXT_TEXT': data.j_remember_me.text,
 				'name' : data.j_remember_me.name,
 				'type' : data.j_remember_me.type,
@@ -102,7 +139,7 @@
 			for (var idx=0; idx<data.estCivil.options.length; idx++) {
 				checkAttributes( 'estCivil_id-'+idx, {
 					'TAGNAME': 'INPUT',
-					'LABEL': data.estCivil.label,
+					'LABEL': data.estCivil.label + ' :',
 					'name' : data.estCivil.name,
 					'type' : data.estCivil.type,
 					'placeholder': data.estCivil.placeholder,
@@ -111,11 +148,11 @@
 			};	
 			checkAttributes( 'provincia_id', {	// testing attrs
 				'TAGNAME': 'SELECT',
-				'LABEL': data.provincia.label,
+				'LABEL': data.provincia.label + ' :',
 				'name' : data.provincia.name,
 				'placeholder': data.provincia.placeholder,
 				'required' : data.provincia._$aRequired,
-				'class': "form-control",
+				'class': "form-control has-success",
 			});
 			for (var idx=0; idx<data.provincia.options.length; idx++) {
 				checkAttributes( 'provincia_id-'+idx, {	// testing attrs
@@ -126,13 +163,44 @@
 					'selected' : (data.provincia.options[idx])._$aSelected,
 				});
 			};
+			checkAttributes( 'areatexto_id', {	// testing attrs
+				'TAGNAME': 'TEXTAREA',
+				'LABEL': data.areatexto.label + ' :',
+				'name' : data.areatexto.name,
+				'placeholder': data.areatexto.placeholder,
+				'value' : data.areatexto.value,
+				'required' : data.areatexto._$aRequired,
+				'class': "form-control has-success",
+			});
+			checkAttributes( 'areatexto2_id', {	// testing attrs
+				'TAGNAME': 'TEXTAREA',
+				'LABEL': data.areatexto2.label + ' :',
+				'name' : data.areatexto2.name,
+				'placeholder': data.areatexto2.placeholder,
+				'value' : data.areatexto2.value,
+				'required' : data.areatexto2._$aRequired,
+				'class': "form-control",
+				'rows' : 3, // set en template
+			});
 			
+			checkAttributes( 'provs_id', {	// testing attrs
+				'TAGNAME': 'DIV',
+				'CHILDS,a': 6,
+				'class': "list-group",
+			});
+
+			checkAttributes( 'table_id', {	// testing attrs
+				'TAGNAME': 'TABLE',
+				'CHILDS,thead > tr > th': 2,
+				'CHILDS,tbody > tr': 10,
+				'class': "table table-condensed table-hover",
+			});
 			
 			
 
 		});
 		
-		expect(82); start();
+		expect(117); start();
 	});
 
 </script>
@@ -148,42 +216,82 @@
 			</div>
 	</div>
 	<div class="row">
-		
-	</div>
-	<div class="row">
 		<div class="col-lg-12">
 			<div class="well">
 				<form class="form-horizontal" action="{{_action}}">
 					<fieldset>
+						{{#oculto}} {{> control-group-input}} {{end}}
 						{{#j_username}} {{> control-group-input}} {{end}}
 						{{#j_password}} {{> control-group-input}} {{end}}
 						{{#email}} {{> control-group-input}} {{end}}
 						{{#j_remember_me}} {{> control-group-input}} {{end}}
 						{{#estCivil}} {{> control-group-input}} {{end}}
 						{{#provincia}} {{> control-group-input}} {{end}}
+						{{#areatexto}} {{> control-group-input}} {{end}}
+						{{#areatexto2}} {{> control-group-input}} {{end}}
+						{{#provs}} {{> control-group-input}} {{end}}
+						{{#email2}} {{> control-group-input}} {{end}}
+						{{#email3}} {{> control-group-input}} {{end}}
 					</fieldset>
 				</form>
 			</div>
 		</div>
-	</div>		
-	
+	</div>
+	<br><br>
+	<div class="row">
+		<div class="col-lg-3"> </div>
+		<div class="col-lg-6">
+			{{#lista}}
+			<div class="table-responsive">
+				<table id="table_id" class="table table-condensed table-hover">
+					{{#_columns}}
+					<thead>
+						 <tr>
+							<th>{{#id}} {{> table-column-head}} {{end}}</th>
+							<th>{{#nombre}} {{> table-column-head}} {{end}}</th>
+						</tr>
+					</thead>
+					{{end}}
+					<tbody>
+						{{#_rows}}
+						<tr>
+							<td>{{#id}} {{> table-column}} {{end}}</td>
+							<td>{{#nombre}} {{> table-column}} {{end}}</td>
+						</tr>
+						{{end}}
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col-lg-1"> </div>
+					<div class="col-lg-7">{{> table-paginator }}</div>
+					<div class="col-lg-3">{{> table-paginator-sizes }}</div>
+				</div>
+			</div>	
+			{{end}}
+		</div>
+		<div class="col-lg-3"> </div>
+	</div>
 	
 </script>
-	
+
+
 <script type="text/javascript">	
 // check elements attrs
 var checkAttributes = function(id, attrs) { 
 	var ct=1, e = document.getElementById(id) ? document.getElementById(id) : document.getElementsByName(id) ? document.getElementsByName(id)[0] : null;
-	ok( !!e , id+' existe elemento' );
+	ok( !!e , id+' ? (existe o no)' );
 	if (e) {  
-		var $e = $(e), name = $e.attr('name');
+		var $e = $(e), name = $e.attr('name'), x1, x2, det;
 		for (var i in attrs) {
-			var a = $e.attr(i), xi = id + ': ' + i + (/selected|checked/i.test(i) ? ' -> '+(a?'( SI )':'( no )') : '');
-			if (i=='TAGNAME') equal( e.tagName, attrs[i], xi); 
-			else if (i=='LABEL') ok( ($("label[for='"+name+"']").text()).indexOf(attrs[i])>=0 , xi); 
-			else if (i=='NEXT_TEXT') equal( String(e.nextSibling.nodeValue).trim(), attrs[i], xi);
-			else if (i=='TEXT') equal( $e.text().trim(), attrs[i], xi);
-			else equal( a!==undefined ? a.trim() : undefined, attrs[i], xi); 
+			det = id + ': ' + i + (/selected|checked/i.test(i) ? ' -> '+($e.attr(i)?'( SI )':'( no )') : '');
+			x2 = attrs[i];
+			if (i=='TAGNAME') x1 = e.tagName;   
+			else if (i=='LABEL') x1 = $("label[for='"+name+"']").text() || undefined;
+			else if (i=='NEXT_TEXT') x1 = String(e.nextSibling.nodeValue);
+			else if (i=='TEXT') x1 = $e.text();
+			else if (i.substring(0,6)=='CHILDS') x1 = $('#'+id+' > '+(i.split(',')[1])).length +''; 
+			else x1 = $e.attr(i); 
+			equal( x1!==undefined ? x1.trim() : undefined , x2, det );
 			ct++;
 		}
 	};
