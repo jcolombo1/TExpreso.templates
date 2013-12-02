@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
  <head>
 	<title>TEST Twitter Bootstrap (v3) Templates para TExpreso</title>
@@ -41,7 +41,7 @@
 
 	var pag = window.newPaginatorGrails({link:'#lista', sort:'nombre'});
 	
-	asyncTest( "Test: TEMPLATE Twitter Bootstrap v 3.0 (tpl_tbs3.html) > inputs", function() {
+	asyncTest( "Test: TEMPLATE Twitter Bootstrap v 3.0 (tpl_tbs3.html) - "+$.TExpreso.ME , function() {
 		clk = new Date();
 
 		$.TExpreso.addFromDom();
@@ -51,17 +51,17 @@
 			
 			var data = { // json response simulado
 				"j_username" : { class: 'has-success', prepends: [{icon:'user'}], label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' },   /** @TODO  minlength */
-				"j_password" : { prepends: [{icon:'asterisk'}], label:'Contraseña', type:'password', id:'j_password_id', required: true },
+				"j_password" : { prepends: [{icon:'asterisk'}], label:'ContraseÃ±a', type:'password', id:'j_password_id', required: true },
 				"email" : {  class: 'has-error', prepends: [{icon:'envelope'}], label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
-				"j_remember_me" : { icon:'star', label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  },
+				"j_remember_me" : { icon:'star', label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en prÃ³ximos accesos', type:'checkbox', checked: true  },
 				"estCivil" : { id: 'estCivil_id', label: 'Estado Civil', type: 'radio', required: true, value: 'S', options: [ {value: 'C', text: 'Casado'}, {value: 'S', text: 'Soltero'}, {value: 'D',text: 'Divorciado'} ] },
 				"provincia" : { class: 'has-success', id: 'provincia_id', label: 'Provincia', value: 'AU', type:'select',  options: [ {value:'BA',text:'Bs. As.'}, {value:'AU',text:'CABA'}, {value:'TF',text:'Tierra del Fuego'} ] },
 				"oculto" : { id:'oculto_id', type: "hidden", label:'XXXXX', placeholder: 'BBBBBBBBBBBBBBB', required: true, value: 'JORGE' },
-				"areatexto" : { class: 'has-success', label:'Texto', rows: 1, placeholder: 'escriba aquí lo que desee...(1 row)', id:'areatexto_id', type: "textarea", required: true },
-				"areatexto2" : { label:'Texto2', placeholder: 'escriba aquí lo que desee...(3 rows)', id:'areatexto2_id', type: "textarea" },
-				"provs" : { id: 'provs_id', label: 'Provincias', type:'tablelist', _rows: [ {row:{value:'Buenos Aires', badge:'10'}}, {row:{active:true, head:'Capital Federal', value: '(también denominada CABA)', badge:'5'}}, {row:{value:'Tierra del Fuego', badge:'2'}}, {row:{value:'AAAA'}}, {row:{value:'BBBB'}}, {row:{value:'CCCC'}} ] },
+				"areatexto" : { class: 'has-success', label:'Texto', rows: 1, placeholder: 'escriba aquÃ­ lo que desee...(1 row)', id:'areatexto_id', type: "textarea", required: true },
+				"areatexto2" : { label:'Texto2', placeholder: 'escriba aquÃ­ lo que desee...(3 rows)', id:'areatexto2_id', type: "textarea" },
+				"provs" : { id: 'provs_id', label: 'Provincias', type:'tablelist', _rows: [ {row:{value:'Buenos Aires', badge:'10'}}, {row:{active:true, head:'Capital Federal', value: '(tambiÃ©n denominada CABA)', badge:'5'}}, {row:{value:'Tierra del Fuego', badge:'2'}}, {row:{value:'AAAA'}}, {row:{value:'BBBB'}}, {row:{value:'CCCC'}} ] },
 				"email2" : { prepends: [ {icon: 'envelope'}, {}, {text: 'Email: '} ], appends: [ { btn: { class:'btn-primary', icon: {prepend: 'check'}, text: 'Enviar !' }} ], label:'Email 2', id: 'email2_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
-				"email3" : { prepends: [ {icon: 'envelope'}, {}, {text: 'Email: '} ], appends: [ {btn: { class:'btn-danger', dropup:true, group: { addon: {text:'Menú', icon:'user'}, menus:[{link:'#',text:'Link A',icon:'ok'},{text:'Link B'},{text:'Link C'},{divider:true},{text:'Link D',icon:{append:'star'}}] }}} ], label:'Email 3', id: 'email3_id', type: 'text' , required: true } , //addon: { icon: 'icon-envelope' } },
+				"email3" : { prepends: [ {icon: 'envelope'}, {}, {text: 'Email: '} ], appends: [ {btn: { class:'btn-danger', dropup:true, group: { addon: {text:'MenÃº', icon:'user'}, menus:[{link:'#',text:'Link A',icon:'ok'},{text:'Link B'},{text:'Link C'},{divider:true},{text:'Link D',icon:{append:'star'}}] }}} ], label:'Email 3', id: 'email3_id', type: 'text' , required: true } , //addon: { icon: 'icon-envelope' } },
 				"lista" : {
 					"_columns": { 
 						"id" : { label: 'ID' },
@@ -85,7 +85,7 @@
 			pag.update(data["lista"]);
 			
 			$('#ej-1-1').texpreso( 'template-1', data );	// ************ renderizar
-			$('#lapso').append('<br>... 1 Tardó : '+ (new Date()-clk) +' ms.');
+			$('#lapso').append('<br>... 1 TardÃ³ : '+ (new Date()-clk) +' ms.');
 			
 			checkAttributes( 'oculto_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
@@ -343,11 +343,11 @@ function logScript(node, ind, reIndent) {		// para usarlo en test
 				[
 					"j_username" : [ label:'Usuario', placeholder: 'ingrese su email', id:'id1', type:"text", required: true, minlength: "2" ],
 					"j_username2" : [ label:'Usuario2', placeholder: 'ingrese su email', id:'id2', type:"text", required: true, minlength: "2" ],
-					"j_password" : [ label:'Contraseña', placeholder: x, type:'password' , required: true ],
+					"j_password" : [ label:'ContraseÃ±a', placeholder: x, type:'password' , required: true ],
 					"email" : [ label:'Email', placeholder: 'ej: suemail@dominio.com', type:'email' , required: true, addon: [ icon: 'icon-envelope' ] ],
-					"j_remember_me" : [ label:'Recordarme', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  ],
+					"j_remember_me" : [ label:'Recordarme', text: 'recordarme en prÃ³ximos accesos', type:'checkbox', checked: true  ],
 					"colores": [  
-						 "blanco" : [ label:'Qué colores?', text: 'blanco', type:'checkbox', checked: true ],
+						 "blanco" : [ label:'QuÃ© colores?', text: 'blanco', type:'checkbox', checked: true ],
 						 "azul" : [ text: 'azul', type:'checkbox' ],
 							],
 					"provincia" : [ label:'Provincia', type:'select', options: [ [value:'BA',text:'Bs. As.'], [value:'AU',text:'CABA'], [value:'TF',text:'Tierra del Fuego'] ] ],
