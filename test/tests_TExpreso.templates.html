@@ -45,7 +45,7 @@
 		clk = new Date();
 
 		$.TExpreso.addFromDom();
-		$.TExpreso.addFromUrl("tpl_tbs3.html", function(count) {
+		$.TExpreso.addFromUrl("tpl_tbs3.tpl", function(count) {
 		
 			ok(count > 1, 'load');
 			
@@ -99,7 +99,7 @@
 			});
 			checkAttributes( 'j_username_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_username.label + ' :',
+				'LABEL': data.j_username.label,
 				'name' : data.j_username.name,
 				'placeholder': data.j_username.placeholder,
 				'type' : data.j_username.type,
@@ -109,7 +109,7 @@
 			});
 			checkAttributes( 'j_password_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_password.label + ' :',
+				'LABEL': data.j_password.label,
 				'name' : data.j_password.name,
 				'type' : data.j_password.type,
 				'placeholder': data.j_password.placeholder,
@@ -119,7 +119,7 @@
 			});
 			checkAttributes( 'email_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.email.label + ' :',
+				'LABEL': data.email.label,
 				'name' : data.email.name,
 				'type' : data.email.type,
 				'placeholder': data.email.placeholder,
@@ -129,7 +129,7 @@
 			});
 			checkAttributes( 'j_remember_me_id', {	// testing attrs
 				'TAGNAME': 'INPUT',
-				'LABEL': data.j_remember_me.label + ' :',
+				'LABEL': data.j_remember_me.label,
 				'NEXT_TEXT': data.j_remember_me.text,
 				'name' : data.j_remember_me.name,
 				'type' : data.j_remember_me.type,
@@ -139,7 +139,7 @@
 			for (var idx=0; idx<data.estCivil.options.length; idx++) {
 				checkAttributes( 'estCivil_id-'+idx, {
 					'TAGNAME': 'INPUT',
-					'LABEL': data.estCivil.label + ' :',
+					'LABEL': data.estCivil.label,
 					'name' : data.estCivil.name,
 					'type' : data.estCivil.type,
 					'placeholder': data.estCivil.placeholder,
@@ -148,7 +148,7 @@
 			};	
 			checkAttributes( 'provincia_id', {	// testing attrs
 				'TAGNAME': 'SELECT',
-				'LABEL': data.provincia.label + ' :',
+				'LABEL': data.provincia.label,
 				'name' : data.provincia.name,
 				'placeholder': data.provincia.placeholder,
 				'required' : data.provincia._$aRequired,
@@ -165,7 +165,7 @@
 			};
 			checkAttributes( 'areatexto_id', {	// testing attrs
 				'TAGNAME': 'TEXTAREA',
-				'LABEL': data.areatexto.label + ' :',
+				'LABEL': data.areatexto.label,
 				'name' : data.areatexto.name,
 				'placeholder': data.areatexto.placeholder,
 				'value' : data.areatexto.value,
@@ -174,7 +174,7 @@
 			});
 			checkAttributes( 'areatexto2_id', {	// testing attrs
 				'TAGNAME': 'TEXTAREA',
-				'LABEL': data.areatexto2.label + ' :',
+				'LABEL': data.areatexto2.label,
 				'name' : data.areatexto2.name,
 				'placeholder': data.areatexto2.placeholder,
 				'value' : data.areatexto2.value,
